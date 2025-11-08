@@ -4,7 +4,7 @@
 
 set -e  # Detener si hay errores
 
-echo "🚀 Iniciando despliegue de base de datos..."
+echo "Iniciando despliegue de base de datos..."
 
 # Variables de entorno (en producción vienen de Secrets Manager)
 export DB_HOST=${DB_HOST:-localhost}
@@ -38,7 +38,7 @@ if ! docker ps | grep -q banco-db-local; then
 fi
 
 # Ejecutar script SQL usando el cliente psql DENTRO del contenedor
-echo "🔧 Ejecutando SQL en contenedor Docker..."
+echo "Ejecutando SQL en contenedor Docker..."
 docker exec -i banco-db-local psql -U $DB_USER -d $DB_NAME < clientes.sql
 
 if [ $? -eq 0 ]; then
