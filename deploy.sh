@@ -14,25 +14,25 @@ export DB_USER=${DB_USER:-postgres}
 
 # Validar que existan las credenciales
 if [ -z "$DB_PASSWORD" ]; then
-    echo "❌ ERROR: DB_PASSWORD no está configurado"
+    echo "ERROR: DB_PASSWORD no está configurado"
     exit 1
 fi
 
-echo "✅ Validando sintaxis SQL..."
+echo "Validando sintaxis SQL..."
 # Aquí iría validación con herramientas como sqlfluff
 
-echo "📊 Conectando a base de datos: $DB_HOST"
+echo "Conectando a base de datos: $DB_HOST"
 
 # Verificar que Docker esté corriendo
 if ! docker ps > /dev/null 2>&1; then
-    echo "❌ ERROR: Docker no está corriendo"
+    echo "ERROR: Docker no está corriendo"
     echo "Por favor inicia Docker Desktop"
     exit 1
 fi
 
 # Verificar que el contenedor exista
 if ! docker ps | grep -q banco-db-local; then
-    echo "❌ ERROR: Contenedor banco-db-local no está corriendo"
+    echo "ERROR: Contenedor banco-db-local no está corriendo"
     echo "Ejecuta: docker-compose up -d"
     exit 1
 fi
@@ -42,12 +42,12 @@ echo "🔧 Ejecutando SQL en contenedor Docker..."
 docker exec -i banco-db-local psql -U $DB_USER -d $DB_NAME < clientes.sql
 
 if [ $? -eq 0 ]; then
-    echo "✅ Despliegue exitoso"
-    echo "📅 Fecha: $(date)"
+    echo "Despliegue exitoso"
+    echo "Fecha: $(date)"
     echo ""
-    echo "📊 Verificando datos insertados..."
+    echo "Verificando datos insertados..."
     docker exec -i banco-db-local psql -U $DB_USER -d $DB_NAME -c "SELECT * FROM clientes;"
 else
-    echo "❌ Error en el despliegue"
+    echo "Error en el despliegue"
     exit 1
 fi
