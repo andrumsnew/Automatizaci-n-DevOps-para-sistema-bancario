@@ -19,9 +19,9 @@ CREATE INDEX IF NOT EXISTS idx_clientes_estado ON clientes(estado);
 INSERT INTO clientes (nombre, apellido, email, telefono) VALUES
 ('Juan', 'Pérez', 'juan.perez@email.com', '987654321'),
 ('María', 'González', 'maria.gonzalez@email.com', '987654322'),
-('Carlos', 'Rodríguez', 'carlos.rodriguez@email.com', '987654323')
-('Carlos', 'Rodríguez', 'carlos.rodriguez@email.com', '987654323')
-('Andres', 'Quispe', 'aqs@email.com', '987654325')
+('Carlos', 'Rodríguez', 'carlos.rodriguez@email.com', '987654323'),
+('Carlos', 'Rodríguez', 'carlos.rodriguez@email.com', '987654323'),
+('Andres', 'Quispe', 'aqs@email.com', '987654325'),
 ON CONFLICT (email) DO NOTHING;
 
 -- Verificar datos
